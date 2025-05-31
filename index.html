@@ -168,15 +168,19 @@
       </p>
       <div class="timer-container">
         <div class="timer-box">
-          <span class="number">06</span>
+          <span class="number" id="days">00</span>
           <span class="label">Days</span>
         </div>
         <div class="timer-box">
-          <span class="number">18</span>
+          <span class="number" id="hours">00</span>
           <span class="label">Hours</span>
         </div>
         <div class="timer-box">
-          <span class="number">48</span>
+          <span class="number" id="minutes">00</span>
+          <span class="label">Min</span>
+        </div>
+                <div class="timer-box">
+          <span class="number" id="second">00</span>
           <span class="label">Min</span>
         </div>
       </div>
@@ -290,5 +294,35 @@
   </div>
 
 </body>
+<script>
+  // Set your countdown target date and time here
+  const countDownDate = new Date("June 30, 2025 00:00:00").getTime();
+
+  const timerFunction = setInterval(function () {
+    const now = new Date().getTime();
+    const distance = countDownDate - now;
+
+    // Time calculations
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Update HTML
+    document.getElementById("days").innerText = days.toString().padStart(2, '0');
+    document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+    document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+    document.getElementById("second").innerText = seconds.toString().padStart(2, '0');
+
+    // If countdown is over
+    if (distance < 0) {
+      clearInterval(timerFunction);
+      document.getElementById("days").innerText = "00";
+      document.getElementById("hours").innerText = "00";
+      document.getElementById("minutes").innerText = "00";
+      document.getElementById("second").innerText = "00";
+    }
+  }, 1000);
+</script>
 
 </html>
